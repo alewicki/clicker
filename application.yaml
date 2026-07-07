@@ -1,0 +1,15 @@
+spring:
+  application.name: counter
+  main.lazy-initialization: true
+  jmx.enabled: false
+  lifecycle:
+    timeout-per-shutdown-phase: 2s
+server:undertow.threads:
+  io: 2
+  worker: 4
+keys:
+  mode: ROBOT
+#  mode: HID
+#  enabled: SPACE,A,S,D,W,E,Q,R,CTRL,SHIFT,ALT,LPM,PPM
+  enabled: SPACE,LPM,PPM
+server.shutdown: graceful
