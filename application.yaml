@@ -9,22 +9,22 @@ server:undertow.threads:
   worker: 4
 keys:
   mode: ROBOT
-#  mode: HID
-#  enabled: SPACE,A,S,D,W,E,Q,R,CTRL,SHIFT,ALT,LPM,PPM
-  enabled: SPACE,LPM,PPM
-#click time in ms min+random delta 50-delta
+  #  mode: HID
+  #  enabled: SPACE,A,S,D,W,E,Q,R,CTRL,SHIFT,ALT,LPM,PPM
+  enabled: SPACE,A,D
+  #click time in ms min+random delta 50-delta
   click:
     time:
       min: 50
       delta: 1000
-#time interval in ms between clicks min+random delta 1-31 s
+    #time interval in ms between clicks min+random delta 1-31 s
     interval:
       min: 1000
-      delta: 30000
-#cost per 1 click in pln
+      delta: 3000
+  #cost per 1 click in pln
   cost: 2
 server.shutdown: graceful
 tipply:
   enabled: true
-  url: https://tipply.pl/api/public/tip/ranking/top-three/vaxontft
+  url: https://tipply.pl/api/public/tip/ranking/last-ten/vaxontft
 #  url: http://localhost:8080/test
