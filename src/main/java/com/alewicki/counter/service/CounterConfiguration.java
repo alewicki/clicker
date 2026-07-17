@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+
 
 @Configuration
 public class CounterConfiguration {
@@ -19,16 +21,25 @@ public class CounterConfiguration {
     public CounterService counterService(
             JumpService jumpService,
             @Value("${keys.enabled}")
-            List<String> keyPresses
+            List<String> keyPresses,
+            @Value("${keys.cost}")
+            Integer cost,
+            @Value("${keys.click.interval.min}")
+            Integer min,
+            @Value("${keys.click.interval.delta}")
+            Integer delta
     ) {
         return new CounterService(
                 new AtomicInteger(),
                 Instant.now(),
                 Instant.now(),
-                new ArrayList<>(),
+                new CopyOnWriteArrayList<>(),
                 jumpService,
                 keyPresses,
-                KeyPress.SPACE
+                KeyPress.SPACE,
+                cost,
+                min,
+                delta
 
         );
     }

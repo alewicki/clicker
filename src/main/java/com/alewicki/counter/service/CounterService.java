@@ -4,6 +4,7 @@ import com.alewicki.counter.service.jump.HidJumpService;
 import com.alewicki.counter.service.jump.JumpService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -17,15 +18,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CounterService {
     private AtomicInteger counter;
-    private Instant previousDecrease;
-    private Instant nextDecrease;
+    private volatile Instant previousDecrease;
+    private volatile Instant nextDecrease;
     private List<SseEmitter> emitters;
     private JumpService jumpService;
     private List<String> enabledKeys;
-    private KeyPress keyPress;
-
+    private volatile KeyPress keyPress;
+    private Integer cost;
+    private Integer min;
+    private Integer delta;
     @Scheduled(fixedDelay = 150)
     public void tick() {
 
@@ -53,7 +57,7 @@ public class CounterService {
     }
 
     public void add(int amount) {
-        counter.addAndGet(amount);
+        counter.addAndGet(amount/cost);
         broadcast();
     }
 
@@ -73,7 +77,11 @@ public class CounterService {
     }
 
     private long randomDelay() {
-        return ThreadLocalRandom.current().nextLong(10, 15000);
+        log.info("Min {}",min);
+        log.info("Delta {}",delta);
+        long l = ThreadLocalRandom.current().nextLong(delta)+min;
+        log.info("Next click in {} ms",l);
+        return l;
     }
 
     private void broadcast() {
@@ -88,7 +96,7 @@ public class CounterService {
                 send(emitter);
             } catch (Exception e) {
                 emitter.complete();
-                iterator.remove();
+                emitters.remove(emitter );
             }
         }
     }
