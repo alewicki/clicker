@@ -38,3 +38,23 @@ body {
     margin-top: 15px;
     font-size: 26px;
 }
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #3fa34d;
+    transition: width 50ms linear;
+    animation: pulse 1.4s ease-in-out infinite;
+}
+
+.progress-bar.executing {
+    background: #d64545;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.55;
+    }
+}
