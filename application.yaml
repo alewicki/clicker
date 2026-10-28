@@ -11,7 +11,7 @@ keys:
   mode: ROBOT
   #  mode: HID
   #  enabled: SPACE,A,S,D,W,E,Q,R,CTRL,SHIFT,ALT,LPM,PPM
-  enabled: SPACE,A,D
+  enabled: SPACE,A,D,W,S,PPM,Q,SWING
   #click time in ms min+random delta 50-delta
   click:
     time:

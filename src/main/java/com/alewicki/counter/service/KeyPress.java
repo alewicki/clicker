@@ -26,7 +26,8 @@ public enum KeyPress {
     SHIFT(KEY_SHIFT_PRESS, KEYBOARD, KeyEvent.VK_SHIFT),
     ALT(KEY_ALT_PRESS, KEYBOARD, KeyEvent.VK_ALT),
     LPM(KEY_LPM_PRESS, MOUSE, InputEvent.BUTTON1_DOWN_MASK),
-    PPM(KEY_PPM_PRESS, MOUSE, InputEvent.BUTTON3_DOWN_MASK);
+    PPM(KEY_PPM_PRESS, MOUSE, InputEvent.BUTTON3_DOWN_MASK),
+    SWING(null,MOUSE ,0 );
 
     private final byte[] keyCode;
     private final KeyType type;
